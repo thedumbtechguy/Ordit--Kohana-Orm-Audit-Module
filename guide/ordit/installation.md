@@ -20,7 +20,8 @@ The table is configured as follows:
 ## Overriding the Ordit::get_username Method
 
 In order to provide the current logged in user's username for auditing,
-create a class in your classes folder named `Ordit`. The example below uses
+create a class in your classes folder named `Ordit` that extends the `Model_Ordit` class. 
+Then override the `get_username` method to return the current logged in user's username. The example below uses
 the default `Auth` module.
 
 	class Ordit extends Model_Ordit
