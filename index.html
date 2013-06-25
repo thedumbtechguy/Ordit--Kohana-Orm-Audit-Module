@@ -1,0 +1,160 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Ordit</title>
+  <meta name="description" content="A Kohana 3.x module that adds automatic auditing to the Official ORM module.">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Ordit</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">A Kohana 3.x module that adds automatic auditing to the Official ORM module.</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/frostymarvelous/ordit/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/frostymarvelous/ordit/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/frostymarvelous/ordit" class="code">View Ordit on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a name="ordit" class="anchor" href="#ordit"><span class="octicon octicon-link"></span></a>Ordit</h1>
+
+<p>Ordit is a Kohana 3.x module that adds automatic auditing to the Official ORM module.</p>
+
+<p>Ordit is a transparent extension that audits all CUD actions on your objects.
+It includes  a Log Viewer to view all Audit logs.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<p>Before we use Ordit, we must enable the modules required</p>
+
+<pre><code>Kohana::modules(array(
+    ...
+    'database' =&gt; MODPATH.'database',
+    'orm' =&gt; MODPATH.'orm',
+    'ordit' =&gt; MODPATH.'ordit',
+    ...
+));
+</code></pre>
+
+<p>[!!] Ordit requires the ORM module (plus its dependencies) to work.</p>
+
+<h3>
+<a name="setting-up-the-database" class="anchor" href="#setting-up-the-database"><span class="octicon octicon-link"></span></a>Setting up the database</h3>
+
+<p>You need to create a table in your database to hold all your logs.</p>
+
+<p>A script is included in the module named <code>ordit_logs.sql</code>
+The script is for a mysql database running the InnoDB engine.</p>
+
+<p>The table is configured as follows:</p>
+
+<pre><code>Table Name :: 
+    `ordit_logs`
+Columns ::
+    `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY
+    `model` CHAR(50) NOT NULL,
+    `action` CHAR(7) NOT NULL,
+    `values` TEXT NOT NULL,
+    `user` CHAR(50) NOT NULL,
+    `timestamp_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+</code></pre>
+
+<h3>
+<a name="overriding-the-orditget_username-method" class="anchor" href="#overriding-the-orditget_username-method"><span class="octicon octicon-link"></span></a>Overriding the Ordit::get_username Method</h3>
+
+<p>In order to provide the current logged in user's username for auditing,
+create a class in your classes folder named <code>Ordit</code> that extends the <code>Model_Ordit</code> class. 
+Then override the <code>get_username</code> method to return the current logged in user's username. The example below uses
+the default <code>Auth</code> module.</p>
+
+<pre><code>class Ordit extends Model_Ordit
+{   
+    protected function get_username()
+    {
+        return Auth::instance()-&gt;get_user()-&gt;username;
+    }
+}
+</code></pre>
+
+<h3>
+<a name="auditing-your-models" class="anchor" href="#auditing-your-models"><span class="octicon octicon-link"></span></a>Auditing Your Models</h3>
+
+<p>To enable auditing of your ORM models, you simple extend <code>Ordit</code>.</p>
+
+<pre><code>class Model_Model extends Ordit
+{
+    ...
+}
+</code></pre>
+
+<p>Any CREATE, UPDATE and DELETE actions are automatically and transparently logged.
+You don't have to do anything else.</p>
+
+<h3>
+<a name="viewing-your-logs" class="anchor" href="#viewing-your-logs"><span class="octicon octicon-link"></span></a>Viewing Your Logs</h3>
+
+<p>The module includes a log viewer. </p>
+
+<p>You can view logs at (http://site_root/ordit)</p>
+
+<p>[!!]The log viewer was modified from <a href="https://github.com/ajaxray/Kohana-Log-Viewer">Kohana Log Viewer</a> viewer.</p>
+
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<h3>
+<a name="log-changes-to-related-modules" class="anchor" href="#log-changes-to-related-modules"><span class="octicon octicon-link"></span></a>Log Changes to Related Modules</h3>
+
+<p>Currently, changes to related modules are logged as an empty array.</p>
+
+<h2>
+<a name="improve-viewer" class="anchor" href="#improve-viewer"><span class="octicon octicon-link"></span></a>Improve Viewer</h2>
+
+<p>Add pagination to the log results</p>
+
+<p>Add ability to search by currently <code>undefined parameters</code></p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/frostymarvelous" class="avatar"><img src="https://secure.gravatar.com/avatar/9fc2d4b98d1d43f2fba83570cb226c03?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/frostymarvelous">frostymarvelous</a> maintains <a href="https://github.com/frostymarvelous/ordit">Ordit</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/frostymarvelous/ordit/tarball/master" class="tar">tar</a><a href="https://github.com/frostymarvelous/ordit/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
