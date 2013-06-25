@@ -7,7 +7,7 @@ It includes  a Log Viewer to view all Audit logs.
 
 ## Getting started
 
-Before we use ORM, we must enable the modules required
+Before we use Ordit, we must enable the modules required
 
 	Kohana::modules(array(
 		...
@@ -41,7 +41,8 @@ The table is configured as follows:
 ### Overriding the Ordit::get_username Method
 
 In order to provide the current logged in user's username for auditing,
-create a class in your classes folder named `Ordit`. The example below uses
+create a class in your classes folder named `Ordit` that extends the `Model_Ordit` class. 
+Then override the `get_username` method to return the current logged in user's username. The example below uses
 the default `Auth` module.
 
 	class Ordit extends Model_Ordit
@@ -67,7 +68,7 @@ You don't have to do anything else.
 ### Viewing Your Logs
 The module includes a log viewer. 
 
-You can view logs at {{site_url}}/ordit
+You can view logs at [http://{{site_root}}/ordit]
 
 [!!]The log viewer was modified from [Kohana Log Viewer](https://github.com/ajaxray/Kohana-Log-Viewer) viewer.
 
