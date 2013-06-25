@@ -13,6 +13,6 @@ You don't have to do anything else.
 # Viewing Your Logs
 The module includes a log viewer. 
 
-You can view logs at {{site_url}}/ordit
+You can view logs at (http://site_root/ordit)
 
 [!!]The log viewer was modified from [Kohana Log Viewer](https://github.com/ajaxray/Kohana-Log-Viewer) viewer.
