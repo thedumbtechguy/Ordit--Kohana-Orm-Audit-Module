@@ -7,7 +7,7 @@ It includes  a Log Viewer to view all Audit logs.
 
 ## Getting started
 
-Before we use ORM, we must enable the modules required
+Before we use Ordit, we must enable the modules required
 
 	Kohana::modules(array(
 		...
