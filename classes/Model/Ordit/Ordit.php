@@ -11,11 +11,10 @@ abstract class Model_Ordit_Ordit extends ORM
 		'delete',
 	);
 	
-	public function save(Validation $validation = NULL)
+	public function update(Validation $validation = NULL)
 	{
-		if($this->loaded())
-			$log = $this->get_ordit_log("update");
-		parent::save($validation);
+		$log = $this->get_ordit_log("update");
+		parent:update($validation);
 		
 		$log->save();
 	}	
