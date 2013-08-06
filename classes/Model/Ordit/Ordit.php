@@ -61,7 +61,7 @@ abstract class Model_Ordit_Ordit extends ORM
 
 		}
 		
-		$log = ORM::factory('ordit_log');
+		$log = ORM::factory('Ordit_Log');
 		
 		$log->model = $this->_object_name . ' :: ' . $this->_original_values[$this->primary_key()];
 		$log->action = $action;
