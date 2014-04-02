@@ -14,7 +14,7 @@ abstract class Model_Ordit_Ordit extends ORM
 	public function update(Validation $validation = NULL)
 	{
 		$log = $this->get_ordit_log("update");
-		parent:update($validation);
+		parent::update($validation);
 		
 		$log->save();
 	}	
