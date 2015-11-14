@@ -54,7 +54,7 @@ class Controller_Ordit extends Controller {
 		$query = DB::query(Database::SELECT, 'SELECT DISTINCT(SUBSTRING(  `timestamp_created` , 1, 7 )) AS ym FROM `ordit_logs`');
 		foreach($query->execute()->as_array() as $row)
 		{
-			$months[] = str_replace('-', '\\', $row['ym']);
+			$months[] = str_replace('-', '/', $row['ym']);
 		}
 		
         return $months;
